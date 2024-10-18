@@ -1,0 +1,27 @@
+class Rectangle:
+    def __init__(self, length: int, width: int):
+        self.length = length
+        self.width = width
+        self._attributes = [('length', self.length), ('width', self.width)]
+        self._index = 0
+
+    # Implementing the __iter__ method
+    def __iter__(self):
+        self._index = 0  # Reset the index every time __iter__ is called
+        return self
+
+    # Implementing the __next__ method
+    def __next__(self):
+        if self._index < len(self._attributes):
+            attr = self._attributes[self._index]
+            self._index += 1
+            return {attr[0]: attr[1]}
+        else:
+            raise StopIteration
+
+# Example usage:
+rectangle = Rectangle(10, 5)
+
+# Iterating over the rectangle instance
+for attr in rectangle:
+    print(attr)
